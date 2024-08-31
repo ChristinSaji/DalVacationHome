@@ -1,93 +1,96 @@
-# serverless_group_36
+# DalVacationHome
 
+## Overview
 
+DalVacationHome is a serverless web application developed to manage vacation home bookings, user interactions, and virtual assistance. The application uses a multi-cloud deployment model and Backend-as-a-Service (BaaS) architecture, leveraging AWS and Google Cloud Platform (GCP) services to provide a robust and scalable experience. The application allows guests, registered customers, and property agents to interact with the platform based on their roles, utilizing features like room booking, feedback submission, and virtual assistance.
 
-## Getting started
+## Features
 
-To make it easy for you to get started with GitLab, here's a list of recommended next steps.
+### For Guests
 
-Already a pro? Just edit this README.md and make it your own. Want to make it easy? [Use the template at the bottom](#editing-this-readme)!
+- **View Room Availability and Tariffs**: Guests can check the availability and pricing of different types of rooms and recreation facilities.
+- **Access Virtual Assistant**: A chatbot built using Google Dialogflow helps guests navigate the site and provides basic information.
+- **View Feedback and Ratings**: Guests can view feedback and overall ratings for specific rooms.
 
-## Add your files
+### For Registered Customers
 
-- [ ] [Create](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#create-a-file) or [upload](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#upload-a-file) files
-- [ ] [Add files using the command line](https://docs.gitlab.com/ee/gitlab-basics/add-file.html#add-a-file-using-the-command-line) or push an existing Git repository with the following command:
+- **Multi-Factor Authentication**: Registered customers must complete multi-factor authentication (using password, security questions, and a Caesar cipher challenge) to access their accounts.
+- **Book Rooms**: Customers can book rooms and recreation facilities for specified periods.
+- **Enhanced Virtual Assistant**: The chatbot provides additional functionalities such as booking management and direct communication with property agents.
+- **Provide Feedback**: Customers can submit feedback on their stay and facilities.
 
-```
-cd existing_repo
-git remote add origin https://git.cs.dal.ca/patel45/serverless_group_36.git
-git branch -M main
-git push -uf origin main
-```
+### For Property Agents
 
-## Integrate with your tools
+- **Manage Rooms**: Agents can add or update room details, set prices, add discounts, and manage room features.
+- **Respond to Customer Queries**: Agents can receive and respond to customer queries through an integrated messaging system.
+- **View Analytics**: Agents have access to data analytics and user statistics through embedded dashboards.
 
-- [ ] [Set up project integrations](https://git.cs.dal.ca/patel45/serverless_group_36/-/settings/integrations)
+## Architecture
 
-## Collaborate with your team
+![Architecture Screenshot](screenshots/architecture_diagram.jpg)
 
-- [ ] [Invite team members and collaborators](https://docs.gitlab.com/ee/user/project/members/)
-- [ ] [Create a new merge request](https://docs.gitlab.com/ee/user/project/merge_requests/creating_merge_requests.html)
-- [ ] [Automatically close issues from merge requests](https://docs.gitlab.com/ee/user/project/issues/managing_issues.html#closing-issues-automatically)
-- [ ] [Enable merge request approvals](https://docs.gitlab.com/ee/user/project/merge_requests/approvals/)
-- [ ] [Set auto-merge](https://docs.gitlab.com/ee/user/project/merge_requests/merge_when_pipeline_succeeds.html)
+The DalVacationHome application is built using a combination of AWS and Google Cloud services to achieve a serverless, scalable architecture:
 
-## Test and Deploy
+- **User Management and Authentication**: Utilizes AWS Cognito for user authentication and AWS Lambda functions in Node.js for multi-factor authentication, with data stored in DynamoDB.
+- **Virtual Assistant Module**: Built using Google Dialogflow for natural language processing, integrated with AWS Lambda functions (Node.js) to handle backend logic.
+- **Messaging System**: Implements Google Cloud Pub/Sub for asynchronous messaging between customers and property agents, with message logs stored in Firestore.
+- **Notifications**: AWS SNS and SQS are used to send notifications for various user actions like successful registration, login, and booking confirmations.
+- **Data Storage and Analysis**: Uses AWS DynamoDB and Google Cloud Storage for storing user and booking data. Google Looker Studio is used for data visualization and analytics.
 
-Use the built-in continuous integration in GitLab.
+## Technology Stack
 
-- [ ] [Get started with GitLab CI/CD](https://docs.gitlab.com/ee/ci/quick_start/index.html)
-- [ ] [Analyze your code for known vulnerabilities with Static Application Security Testing (SAST)](https://docs.gitlab.com/ee/user/application_security/sast/)
-- [ ] [Deploy to Kubernetes, Amazon EC2, or Amazon ECS using Auto Deploy](https://docs.gitlab.com/ee/topics/autodevops/requirements.html)
-- [ ] [Use pull-based deployments for improved Kubernetes management](https://docs.gitlab.com/ee/user/clusters/agent/)
-- [ ] [Set up protected environments](https://docs.gitlab.com/ee/ci/environments/protected_environments.html)
+- **Frontend**: React, integrated with Google Dialogflow for chatbot functionality.
+- **Backend**: AWS Lambda (Node.js), Google Cloud Functions.
+- **Authentication**: AWS Cognito.
+- **Database**: AWS DynamoDB, Google Firestore.
+- **Messaging and Notification**: Google Cloud Pub/Sub, AWS SNS, and SQS.
+- **Data Analysis and Visualization**: Google Looker Studio.
+- **Hosting**: GCP Cloud Run for hosting the frontend application.
 
-***
+## Setup and Deployment
 
-# Editing this README
+### Prerequisites
 
-When you're ready to make this README your own, just edit this file and use the handy template below (or feel free to structure it however you want - this is just a starting point!). Thanks to [makeareadme.com](https://www.makeareadme.com/) for this template.
+1. **AWS Account**: Required for setting up Cognito, Lambda functions, DynamoDB, SNS, and SQS.
+2. **Google Cloud Platform Account**: Needed for Dialogflow, Cloud Functions, Firestore, and Cloud Run.
+3. **Node.js and npm**: For running the frontend React application and backend Node.js Lambda functions.
 
-## Suggestions for a good README
+### Deployment Steps
 
-Every project is different, so consider which of these sections apply to yours. The sections used in the template are suggestions for most open source projects. Also keep in mind that while a README can be too long and detailed, too long is better than too short. If you think your README is too long, consider utilizing another form of documentation rather than cutting out information.
+1. **Clone the Repository**:
 
-## Name
-Choose a self-explaining name for your project.
+   ```bash
+   git clone https://github.com/ChristinSaji/DalVacationHome.git
+   cd DalVacationHome
+   ```
 
-## Description
-Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your project, this is a good place to list differentiating factors.
+2. **Install Frontend Dependencies**:
 
-## Badges
-On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
+   ```bash
+   cd frontend
+   npm install
+   ```
 
-## Visuals
-Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see GIFs rather than actual videos). Tools like ttygif can help, but check out Asciinema for a more sophisticated method.
+3. **Run the Application Locally**:
 
-## Installation
-Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
+   ```bash
+   npm start
+   ```
+
+4. **Deploy Backend Services**:
+
+   - **AWS Services**: Deploy AWS Lambda functions (Node.js) using the AWS Management Console or AWS CLI, set up AWS Cognito for user management, and configure DynamoDB tables.
+   - **Google Cloud Services**: Deploy Dialogflow agents, Cloud Functions, and set up Firestore.
+
+5. **Deploy Frontend to Cloud Run**:
+   - Build the frontend application:
+     ```bash
+     npm run build
+     ```
+   - Deploy the built application to GCP Cloud Run following the instructions provided in the GCP Console.
 
 ## Usage
-Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
 
-## Support
-Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
-
-## Roadmap
-If you have ideas for releases in the future, it is a good idea to list them in the README.
-
-## Contributing
-State if you are open to contributions and what your requirements are for accepting them.
-
-For people who want to make changes to your project, it's helpful to have some documentation on how to get started. Perhaps there is a script that they should run or some environment variables that they need to set. Make these steps explicit. These instructions could also be useful to your future self.
-
-You can also document commands to lint the code or run tests. These steps help to ensure high code quality and reduce the likelihood that the changes inadvertently break something. Having instructions for running tests is especially helpful if it requires external setup, such as starting a Selenium server for testing in a browser.
-
-## Authors and acknowledgment
-Show your appreciation to those who have contributed to the project.
-
-## License
-For open source projects, say how it is licensed.
-
-## Project status
-If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
+- **Guests**: Navigate the site to view room availability and use the chatbot for basic information.
+- **Registered Customers**: Log in using multi-factor authentication to book rooms, manage bookings, and communicate with property agents.
+- **Property Agents**: Log in to manage room details, respond to customer queries, and access analytics.
